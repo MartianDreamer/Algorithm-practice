@@ -34,7 +34,4 @@ class Heap:
             self.heapify(largest)
 
 
-heap = Heap([27, 17, 3, 16, 13, 10, 1, 5, 7, 12, 4, 8, 9, 0])
-print(heap.arr)
-heap.heapify(8)
-print(heap.arr)
+
