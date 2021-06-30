@@ -1,4 +1,3 @@
-import abc
 from typing import List
 
 
@@ -8,6 +7,9 @@ class Heap:
         self.__heapSize = len(arr)
         self.__arrSize = len(arr)
         self.buildHeap()
+
+    def size(self) -> int:
+        return self.__heapSize
 
     def __heapify(self, i: int):
         largest = i
@@ -29,17 +31,6 @@ class Heap:
             self.__heapify(lastIndex - i)
         return self
 
-    def heapSort(self) -> List[int]:
-        lastIndex = self.__arrSize - 1
-        for i in range(lastIndex):
-            temp = self.__arr[lastIndex - i]
-            self.__arr[lastIndex - i] = self.__arr[0]
-            self.__arr[0] = temp
-            self.__heapSize -= 1
-            self.__heapify(0)
-        self.__heapSize = self.__arrSize
-        return self.__arr
-
     def maxHeap(self) -> int:
         return self.__arr[0]
 
@@ -59,3 +50,11 @@ class Heap:
 
 class OutOfBoundException(Exception):
     pass
+
+
+def heapSort(numbers: List[int]) -> List[int]:
+    heap = Heap(numbers)
+    result = []
+    for i in range(heap.size()):
+        result.insert(0, heap.extractMax())
+    return result
