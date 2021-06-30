@@ -45,7 +45,7 @@ class Heap:
 
     def extractMax(self) -> int:
         if self.__heapSize < 1:
-            raise Exception("No element in heap")
+            raise OutOfBoundException("No element in heap")
         maxElement = self.__arr[0]
         self.__arr[0] = self.__arr[self.__heapSize - 1]
         self.__arr[self.__heapSize - 1] = maxElement
@@ -55,3 +55,7 @@ class Heap:
 
     def __str__(self) -> str:
         return self.__arr.__str__()
+
+
+class OutOfBoundException(Exception):
+    pass
