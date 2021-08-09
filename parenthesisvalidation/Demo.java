@@ -8,5 +8,6 @@ public class Demo {
             return;
         }
         System.out.println("invalid");
+        System.out.println(checker.longestValidParenthesisSequence(")()(())()()))())))("));
     }
 }
