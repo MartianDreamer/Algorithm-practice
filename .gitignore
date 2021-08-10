@@ -15,6 +15,9 @@
 *.wsf
 *.o
 
+### Demo ###
+demo.*
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
