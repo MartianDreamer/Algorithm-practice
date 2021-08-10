@@ -16,7 +16,7 @@
 *.o
 
 ### Demo ###
-demo.*
+Demo.*
 
 ### VisualStudioCode ###
 .vscode/*
