@@ -14,8 +14,10 @@ public class Demo {
         bst.insert(new bst.Node(120));
         bst.insert(new bst.Node(210));
         bst.insert(new bst.Node(180));
+        bst.insert(new bst.Node(190));
         bst.insert(new bst.Node(240));
         bst.insert(new bst.Node(230));
+        bst.delete(bst.get(160));
         System.out.println(bst.getDepth());
         System.out.println(bst);
     }
