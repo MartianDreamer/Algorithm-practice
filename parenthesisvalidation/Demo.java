@@ -3,7 +3,7 @@ package parenthesisvalidation;
 public class Demo {
     public static void main(String[] args) {
         var checker = new ParenthesisValidation();
-        if (checker.isValid("(()(()()))")) {
+        if (checker.isValid("(()(()()))))")) {
             System.out.println("valid");
             return;
         }
