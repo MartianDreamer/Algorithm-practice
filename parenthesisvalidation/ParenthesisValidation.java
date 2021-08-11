@@ -12,13 +12,12 @@ public class ParenthesisValidation {
             if (character == ')') {
                 if (chars.getSize() > 0) {
                     chars.pop();
+                    continue;
                 }
                 return false;
             }
         }
-        if (chars.getSize() == 0)
-            return true;
-        return false;
+        return chars.getSize() == 0;
     }
 
     public int longestValidParenthesisSequence(String string) {
