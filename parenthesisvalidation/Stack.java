@@ -57,6 +57,10 @@ public class Stack<T> {
         return values[index];
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     /*
      * (non-Javadoc)
      * 
