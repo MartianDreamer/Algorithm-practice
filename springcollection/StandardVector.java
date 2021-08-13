@@ -1,7 +1,5 @@
 package springcollection;
 
-import java.util.Arrays;
-
 public class StandardVector<T> implements Vector<T> {
 
     private T[] array;

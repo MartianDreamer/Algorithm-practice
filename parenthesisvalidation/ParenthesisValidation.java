@@ -1,39 +1,41 @@
 package parenthesisvalidation;
 
+import springcollection.LinkedStack;
+
 public class ParenthesisValidation {
 
     public boolean isValid(String string) {
-        Stack<Character> chars = new Stack<>();
+        LinkedStack<Character> chars = new LinkedStack<>();
         for (var i = 0; i < string.length(); i++) {
             var character = string.charAt(i);
             if (character == '(') {
                 chars.push(character);
             }
             if (character == ')') {
-                if (chars.getSize() > 0) {
+                if (chars.size() > 0) {
                     chars.pop();
                     continue;
                 }
                 return false;
             }
         }
-        return chars.getSize() == 0;
+        return chars.size() == 0;
     }
 
     public int longestValidParenthesisSequence(String string) {
         int count = 0;
-        Stack<Character> chars = new Stack<>();
+        LinkedStack<Character> chars = new LinkedStack<>();
         for (var i = 0; i < string.length(); i++) {
             var character = string.charAt(i);
             if (character == '(') {
                 chars.push(character);
                 count++;
             }
-            if (character == ')' && chars.getSize() > 0) {
+            if (character == ')' && chars.size() > 0) {
                 chars.pop();
                 count++;
             }
         }
-        return count - chars.getSize();
+        return count - chars.size();
     }
 }

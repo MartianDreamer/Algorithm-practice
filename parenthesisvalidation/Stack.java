@@ -20,7 +20,7 @@ public class Stack<T> {
     /**
      * @return the size
      */
-    public int getSize() {
+    public int size() {
         return size;
     }
 
