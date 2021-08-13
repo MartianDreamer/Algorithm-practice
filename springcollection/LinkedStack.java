@@ -26,12 +26,18 @@ public class LinkedStack<T> {
         size++;
     }
 
-    public void pop() {
+    public T pop() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException();
+        T result = first.item;
         first = first.next;
         size--;
+        return result;
     }
 
     public T peek(int index) {
+        if (index < 0 || index >= size)
+            throw new IndexOutOfBoundsException();
         Node<T> node = this.last;
         for (int i = 0; i < index; i++) {
             node = node.previous;
