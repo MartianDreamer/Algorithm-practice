@@ -103,9 +103,11 @@ public class BinarySearchTree {
             node.setRight(null);
             if (node.equals(node.getParent().getLeft())) {
                 node.getParent().setLeft(successor);
+                successor.setParent(node.getParent());
                 node.setParent(null);
                 return node;
             }
+            successor.setParent(node.getParent());
             node.getParent().setRight(successor);
             node.setParent(null);
             return node;
@@ -117,6 +119,7 @@ public class BinarySearchTree {
         delete(successor);
         successor.setLeft(node.getLeft());
         successor.setRight(node.getRight());
+        successor.setParent(node.getParent());
         node.setLeft(null);
         node.setRight(null);
         if (node.equals(node.getParent().getLeft())) {
