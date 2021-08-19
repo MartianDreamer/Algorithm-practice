@@ -44,6 +44,29 @@ class Heap:
         self.__heapify(0)
         return maxElement
 
+    def insert(self, number):
+        if self.__heapSize < self.__arrSize:
+            index = self.__heapSize
+            self.__arr[index] = number
+            self.__heapSize += 1
+            parentIndex = (index - 1) / \
+                2 if index % 2 == 1 else (index - 2) / 2
+            while(parentIndex != 0):
+                self.__heapify(parentIndex)
+                parentIndex = (parentIndex - 1) / \
+                    2 if parentIndex % 2 == 1 else (parentIndex - 2)/2
+            return
+        self.__arr.append(number)
+        index = self.__heapSize
+        self.__heapSize += 1
+        self.__arrSize += 1
+        parentIndex = (index - 1) / \
+            2 if index % 2 == 1 else (index - 2) / 2
+        while(parentIndex != 0):
+            self.__heapify(parentIndex)
+            parentIndex = (parentIndex - 1) / \
+                2 if parentIndex % 2 == 1 else (parentIndex - 2)/2
+
     def __str__(self) -> str:
         return self.__arr.__str__()
 
