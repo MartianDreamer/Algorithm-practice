@@ -1,4 +1,4 @@
-package springcollection;
+
 
 public interface Vector<T> {
     int size();
