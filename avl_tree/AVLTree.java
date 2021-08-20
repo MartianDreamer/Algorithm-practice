@@ -90,6 +90,7 @@ public class AVLTree<T extends Comparable<T>> {
 
     private boolean isLeft(Node<T> node) {
         assert node != null;
+        assert node.getParent() != null;
         return node.getParent().getLeft() == node;
     }
 
@@ -98,15 +99,24 @@ public class AVLTree<T extends Comparable<T>> {
         assert node != null;
         Node<T> nodeRightChild = node.getRight();
         Node<T> nodeParent = node.getParent();
-        boolean isLeft = isLeft(node);
+        if (nodeParent != null) {
+            boolean isLeft = isLeft(node);
+            node.setRight(nodeRightChild.getLeft());
+            node.setParent(nodeRightChild);
+            nodeRightChild.setLeft(node);
+            if (isLeft)
+                nodeParent.setLeft(nodeRightChild);
+            else
+                nodeParent.setRight(nodeRightChild);
+            nodeRightChild.setParent(nodeParent);
+            fixTreeHeight(node);
+            return;
+        }
         node.setRight(nodeRightChild.getLeft());
         node.setParent(nodeRightChild);
         nodeRightChild.setLeft(node);
-        if (isLeft)
-            nodeParent.setLeft(nodeRightChild);
-        else
-            nodeParent.setRight(nodeRightChild);
         nodeRightChild.setParent(nodeParent);
+        root = nodeRightChild;
         fixTreeHeight(node);
     }
 
@@ -115,15 +125,23 @@ public class AVLTree<T extends Comparable<T>> {
         assert node != null;
         Node<T> nodeLeftChild = node.getLeft();
         Node<T> nodeParent = node.getParent();
-        boolean isLeft = isLeft(node);
+        if (nodeParent != null) {
+            boolean isLeft = isLeft(node);
+            node.setLeft(nodeLeftChild.getRight());
+            node.setParent(nodeLeftChild);
+            nodeLeftChild.setRight(node);
+            if (isLeft)
+                nodeParent.setLeft(nodeLeftChild);
+            else
+                nodeParent.setRight(nodeLeftChild);
+            nodeLeftChild.setParent(nodeParent);
+            fixTreeHeight(node);
+        }
         node.setLeft(nodeLeftChild.getRight());
         node.setParent(nodeLeftChild);
         nodeLeftChild.setRight(node);
-        if (isLeft)
-            nodeParent.setLeft(nodeLeftChild);
-        else
-            nodeParent.setRight(nodeLeftChild);
         nodeLeftChild.setParent(nodeParent);
+        root = nodeLeftChild;
         fixTreeHeight(node);
     }
 
@@ -169,7 +187,9 @@ public class AVLTree<T extends Comparable<T>> {
         StringBuilder stringBuilder = new StringBuilder();
         List<Node<T>> nodes = new LinkedList<>();
         inOrder(root, nodes);
-        nodes.forEach((element) -> stringBuilder.append(element.getHeight() + ". " + element.getValue() + " "));
+        nodes.forEach((element) -> stringBuilder
+                .append("height" + element.getHeight() + "value" + element.getValue() + ", "));
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         return stringBuilder.toString();
     }
 
