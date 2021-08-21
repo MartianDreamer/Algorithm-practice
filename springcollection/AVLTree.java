@@ -6,6 +6,13 @@ public class AVLTree<T extends Comparable<T>> {
     private int size;
 
     /**
+     * @return the root
+     */
+    public Node<T> getRoot() {
+        return root;
+    }
+
+    /**
      * 
      */
     public AVLTree() {
@@ -65,23 +72,8 @@ public class AVLTree<T extends Comparable<T>> {
         return leftChild;
     }
 
-    public Node<T> insertAtNode(Node<T> node, T key) {
-        assert key != null;
-        if (node == null) {
-            node = new Node<>(key);
-            size++;
-            return node;
-        }
-
-        if (node.getKey().compareTo(key) > 0) {
-            node.setLeft(insertAtNode(node.getLeft(), key));
-        } else if (node.getKey().compareTo(key) < 0) {
-            node.setRight(insertAtNode(node.getRight(), key));
-        } else {
-            return node;
-        }
-
-        updateHeight(node);
+    private Node<T> balanceNode(Node<T> node) {
+        assert node != null;
         if (isViolated(node)) {
             if (isLeftHeavy(node)) {
                 Node<T> leftChild = node.getLeft();
@@ -109,8 +101,91 @@ public class AVLTree<T extends Comparable<T>> {
         return node;
     }
 
-    public void insert(T value) {
-        this.root = insertAtNode(root, value);
+    private Node<T> insertAtNode(Node<T> node, T key) {
+        assert key != null;
+        if (node == null) {
+            node = new Node<>(key);
+            return node;
+        }
+
+        if (node.getKey().compareTo(key) > 0) {
+            node.setLeft(insertAtNode(node.getLeft(), key));
+        } else if (node.getKey().compareTo(key) < 0) {
+            node.setRight(insertAtNode(node.getRight(), key));
+        } else {
+            return node;
+        }
+
+        updateHeight(node);
+        node = balanceNode(node);
+        return node;
+    }
+
+    private Node<T> search(Node<T> node, T key) {
+        assert key != null;
+        if (node == null || node.getKey().equals(key)) {
+            return node;
+        }
+        if (node.getKey().compareTo(key) > 0) {
+            return search(node.getLeft(), key);
+        }
+        if (node.getKey().compareTo(key) < 0) {
+            return search(node.getRight(), key);
+        }
+        return node;
+    }
+
+    private Node<T> successor(Node<T> node) {
+        node = node.getRight();
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
+    private Node<T> delete(Node<T> node, T key) {
+        assert key != null;
+        if (node == null)
+            return node;
+        if (node.getKey().compareTo(key) > 0) {
+            node.setLeft(delete(node.getLeft(), key));
+        }
+        if (node.getKey().compareTo(key) < 0) {
+            node.setRight(delete(node.getRight(), key));
+        }
+        if (node.getKey().compareTo(key) == 0) {
+            if (node.getLeft() == null && node.getRight() == null) {
+                node = null;
+            } else if (node.getLeft() == null ^ node.getRight() == null) {
+                Node<T> temp = node.getLeft() == null ? node.getRight() : node.getLeft();
+                node = temp;
+            } else {
+                Node<T> successor = successor(node);
+
+                node.setKey(successor.getKey());
+
+                node.setRight(delete(node.getRight(), successor.getKey()));
+            }
+        }
+        if (node == null)
+            return node;
+        updateHeight(node);
+        node = balanceNode(node);
+        return node;
+    }
+
+    public void insert(T key) {
+        this.root = insertAtNode(root, key);
+        size++;
+    }
+
+    public Node<T> search(T key) {
+        return search(root, key);
+    }
+
+    public void delete(T key) {
+        this.root = delete(root, key);
+        size--;
     }
 
     public void inOrderTraverse(Node<T> node, List<Node<T>> list) {
