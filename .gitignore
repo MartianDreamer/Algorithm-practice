@@ -15,6 +15,9 @@
 *.wsf
 *.o
 
+### Text file
+*.txt
+
 ### Demo ###
 Demo.*
 
