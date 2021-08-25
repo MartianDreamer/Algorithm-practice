@@ -1,5 +1,4 @@
 from typing import List
-import random
 
 
 def buble_sort(list: List[List[int]]):
