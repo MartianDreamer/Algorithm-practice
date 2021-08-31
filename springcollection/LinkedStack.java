@@ -1,3 +1,5 @@
+package springcollection;
+
 
 
 public class LinkedStack<T> {
