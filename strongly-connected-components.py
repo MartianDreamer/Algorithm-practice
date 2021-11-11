@@ -31,7 +31,7 @@ def first_dfs(graph: List):
         finish_time.append(0)
     result = None
     time = 0
-    for vertex in range(len(graph)-1, -1, -1):
+    for vertex in range(len(graph)):
         if not is_visited[vertex]:
             result = first_dfs_visit(
                 graph, vertex, is_visited, finish_time, time)
@@ -109,7 +109,7 @@ def scc(graph: List):
 
 def main():
     print(sys.getrecursionlimit())
-    graph = read_file("./scc.txt")
+    graph = read_file("../Coursera/scc.txt")
     start = time.time()
     result = scc(graph)
     result.sort(reverse=True)
