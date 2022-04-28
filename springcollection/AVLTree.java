@@ -1,5 +1,6 @@
 package springcollection;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -190,12 +191,19 @@ public class AVLTree<T extends Comparable<T>> {
         size--;
     }
 
-    public void inOrderTraverse(Node<T> node, List<Node<T>> list) {
+    private void inOrderTraverse(Node<T> node, List<Node<T>> list) {
+
         if (node.getLeft() != null)
             inOrderTraverse(node.getLeft(), list);
         list.add(node);
         if (node.getRight() != null)
             inOrderTraverse(node.getRight(), list);
+    }
+
+    public List<Node<T>> inOrderTraverse() {
+        List<Node<T>> list = new ArrayList<>(size);
+        inOrderTraverse(root, list);
+        return list;
     }
 
     @Override
@@ -275,12 +283,6 @@ public class AVLTree<T extends Comparable<T>> {
         private void setLeft(Node<E> left) {
             this.left = left;
         }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
 
         @Override
         public String toString() {
